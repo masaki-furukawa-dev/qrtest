@@ -25,20 +25,21 @@ class _BarcodeScanPageState extends State<BarcodeScanPage>
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(),
-        body: SizedBox(
-          width: size.width,
-          height: size.height,
-          child: MobileScanner(
-            controller: cameraController,
-            errorBuilder: (context, error, child) {
-              return ScannerErrorWidget(error: error);
-            },
-            fit: BoxFit.contain,
-            onDetect: (barcode) {
-              cameraController.dispose();
-              Navigator.of(context).pop(barcode.barcodes.first.rawValue!);
-            },
-          ),
+        body: Column(
+          children: [
+            Expanded(
+                child: MobileScanner(
+              controller: cameraController,
+              errorBuilder: (context, error, child) {
+                return ScannerErrorWidget(error: error);
+              },
+              fit: BoxFit.contain,
+              onDetect: (barcode) {
+                cameraController.dispose();
+                Navigator.of(context).pop(barcode.barcodes.first.rawValue!);
+              },
+            ))
+          ],
         ));
   }
 }
